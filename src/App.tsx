@@ -1,10 +1,10 @@
 import {
   type FormEventHandler,
   type ChangeEventHandler,
+  type Reducer,
   useEffect,
   useReducer,
   useRef,
-  Reducer,
 } from 'react';
 
 import { type Card } from './utils/translate';
@@ -124,7 +124,7 @@ function App() {
 
     await anki.action('addNote', {
       note: {
-        deckName: 'Default',
+        deckName: state.selectedDeck,
         modelName: 'Basic',
         fields: {
           Front: card.front,
@@ -142,7 +142,7 @@ function App() {
 
     await anki.action('addNotes', {
       notes: state.cards.map((card: Card) => ({
-        deckName: 'Default',
+        deckName: state.selectedDeck,
         modelName: 'Basic',
         fields: {
           Front: card.front,
