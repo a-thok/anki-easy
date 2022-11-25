@@ -15,7 +15,7 @@ interface Note {
   };
 }
 
-type AnkiResults = {
+type AnkiRequest = {
   deckNames: {
     params: undefined;
     result: string[];
@@ -50,7 +50,7 @@ type AnkiResults = {
   };
 };
 
-type AnkiAction = keyof AnkiResults;
+type AnkiAction = keyof AnkiRequest;
 
 class Anki {
   #endpoint = '/anki';
@@ -58,7 +58,7 @@ class Anki {
   #version = 6;
 
   // eslint-disable-next-line max-len
-  async action<T extends AnkiAction>(actionName: T, params?: AnkiResults[T]['params']): Promise<AnkiResults[T]['result']> {
+  async action<T extends AnkiAction>(actionName: T, params?: AnkiRequest[T]['params']): Promise<AnkiRequest[T]['result']> {
     const res = await fetch(this.#endpoint, {
       method: 'POST',
       body: JSON.stringify({
