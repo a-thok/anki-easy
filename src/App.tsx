@@ -116,7 +116,6 @@ function App() {
     });
   };
 
-  // todo 选择卡片组
   const onAddCard = async (card: Card) => {
     if (!state.selectedDeck) {
       dialogRef.current?.showModal();
