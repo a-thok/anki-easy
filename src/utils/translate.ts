@@ -1,5 +1,5 @@
 import type { Handler } from 'vite-plugin-mix';
-import md5 from 'md5';
+import crypto from 'node:crypto';
 
 type TranslationResult = {
   message: {
@@ -39,7 +39,8 @@ async function getIcibaTranslation(word: string) {
   const API_PATH = '/dictionary/word/query/web';
   const SIG_KEY = '7ece94d9f9c202b0d2ec557dg4r9bc';
   const timestamp = Date.now();
-  const signature = md5(`${API_PATH}61000006${timestamp}${word.toLowerCase()}${SIG_KEY}`);
+  const content = `${API_PATH}61000006${timestamp}${word.toLowerCase()}${SIG_KEY}`;
+  const signature = crypto.createHash('md5').update(content).digest('hex');
 
   const query = [
     'client=6',
